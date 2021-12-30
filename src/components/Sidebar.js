@@ -1,10 +1,9 @@
 import React from 'react';
 
 import './Siderbar.css';
-import { IconButton } from '@material-ui/core';
+import { IconButton, Avatar } from '@material-ui/core';
 import {
   DonutLarge,
-  AccountCircle,
   ChatOutlined,
   MoreVert,
   SearchOutlined,
@@ -16,7 +15,7 @@ function Sidebar() {
     <div className="sidebar">
       {/* header */}
       <div className="sidebar-header">
-        <AccountCircle />
+        <Avatar />
         <div className="sidebar-rightSide">
           <IconButton>
             <DonutLarge />

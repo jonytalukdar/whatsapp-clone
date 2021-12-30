@@ -14,10 +14,7 @@
   margin-left: 20px;
 }
 
-.sidebarChats-info h2 {
-  margin: 0;
-}
-
-.sidebarChats-info p {
+.sidebarChats-info h2,
+p {
   margin: 0;
 }
