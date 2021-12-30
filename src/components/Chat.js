@@ -11,12 +11,19 @@ import {
 import './Chat.css';
 
 const Chat = () => {
+  //states
   const [seed, setSeed] = useState('');
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     setSeed(Math.floor(Math.random() * 5000));
   }, []);
 
+  const handleSubmitMessage = (e) => {
+    e.preventDefault();
+
+    console.log(message);
+  };
   return (
     <div className="chat">
       <div className="chat-header">
@@ -56,10 +63,16 @@ const Chat = () => {
         </p>
       </div>
 
+      {/* chat foooter */}
       <div className="chat-footer">
         <InsertEmoticon />
-        <form>
-          <input type="text" placeholder="Type a message" />
+        <form onSubmit={handleSubmitMessage}>
+          <input
+            type="text"
+            placeholder="Type a message"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
           <button type="submit">Send Message</button>
         </form>
         <Mic />

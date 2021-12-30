@@ -96,7 +96,9 @@
 }
 
 .chat-footer > form > input:focus {
-  outline: none;
+  outline: 2px;
+  border: 1px solid lightblue;
+  border-radius: 0px;
 }
 
 .chat-footer > .MuiSvgIcon-root {
