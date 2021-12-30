@@ -5,6 +5,7 @@ import {
   SearchOutlined,
   AttachFile,
   InsertEmoticon,
+  Mic,
 } from '@material-ui/icons';
 
 import './Chat.css';
@@ -58,9 +59,10 @@ const Chat = () => {
       <div className="chat-footer">
         <InsertEmoticon />
         <form>
-          <input type="text" />
-          <button>Send Message</button>
+          <input type="text" placeholder="Type a message" />
+          <button type="submit">Send Message</button>
         </form>
+        <Mic />
       </div>
     </div>
   );
