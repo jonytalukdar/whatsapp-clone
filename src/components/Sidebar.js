@@ -9,8 +9,11 @@ import {
   SearchOutlined,
 } from '@material-ui/icons';
 import SidebarChats from './SidebarChats';
+import useCollection from '../hooks/useCollection';
 
 function Sidebar() {
+  const { documents } = useCollection('rooms');
+
   return (
     <div className="sidebar">
       {/* header */}
@@ -39,9 +42,11 @@ function Sidebar() {
 
       {/* chats rooms */}
       <div className="sidebar-chats">
-        <SidebarChats />
-        <SidebarChats />
-        <SidebarChats />
+        {documents &&
+          documents.map((room) => {
+            // return <Sidebar room={room} />;
+            return <SidebarChats key={room.id} room={room} />;
+          })}
       </div>
     </div>
   );

@@ -1,6 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
 import { app } from '../firebase/Firebase.config';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+} from 'firebase/auth';
 import { AuthContext } from '../context/AuthContext';
 
 import { getFirestore, doc, updateDoc } from 'firebase/firestore';
@@ -49,11 +54,35 @@ const useLogin = () => {
     }
   };
 
+  //signin with google
+  const provider = new GoogleAuthProvider();
+
+  const signinWithGoogle = async () => {
+    try {
+      const response = await signInWithPopup(auth, provider);
+      const credential = GoogleAuthProvider.credentialFromResult(response);
+      const token = credential.accessToken;
+
+      const user = response.user;
+
+      dispatch({ type: 'LOGIN', payload: user });
+      if (!isCancelled) {
+        setIsLoading(false);
+        setError(error.code);
+      }
+    } catch (error) {
+      if (!isCancelled) {
+        setIsLoading(false);
+        setError(error.code);
+      }
+    }
+  };
+
   useEffect(() => {
     return () => setIsCancelled(true);
   }, []);
 
-  return { signin, error, isLoading };
+  return { signin, signinWithGoogle, error, isLoading };
 };
 
 export default useLogin;
