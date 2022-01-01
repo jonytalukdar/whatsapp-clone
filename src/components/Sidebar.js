@@ -12,18 +12,21 @@ import {
 import SidebarChats from './SidebarChats';
 import useCollection from '../hooks/useCollection';
 import { AuthContext } from '../context/AuthContext';
+import useFireStore from '../hooks/useFireStore';
 
 function Sidebar() {
   const { user } = useContext(AuthContext);
+  const { addDocument } = useFireStore('rooms');
   const { signout } = useLogout();
   const { documents } = useCollection('rooms');
-  const [roomName, setRoomName] = useState('');
+  // const [roomName, setRoomName] = useState('');
+
   //create chat function
   const createChat = (e) => {
     const roomName = prompt('Please enter room name for chat');
 
     if (roomName) {
-      setRoomName(roomName);
+      addDocument({ name: roomName, creator: user.displayName, messages: [] });
     }
   };
 
@@ -59,6 +62,7 @@ function Sidebar() {
         <div className="sidebarChats" onClick={createChat}>
           <h2>Add New Chat</h2>
         </div>
+        {/* {documents.length === 0 && <p>No Rooms Created Yet!</p>} */}
         {documents &&
           documents.map((room) => {
             return (

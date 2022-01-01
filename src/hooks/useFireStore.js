@@ -113,14 +113,13 @@ const useFireStore = (collectionName) => {
   };
 
   // upate document
-
   const updateDocument = async (id, updatedDoc) => {
     dispatch({ type: 'IS_LOADING' });
 
     try {
       const newUpdatedDocRef = doc(db, `${collectionName}`, id);
       await updateDoc(newUpdatedDocRef, {
-        comments: updatedDoc,
+        messages: updatedDoc,
       });
 
       dispatch({ type: 'UPDATED_DOC', payload: newUpdatedDocRef });

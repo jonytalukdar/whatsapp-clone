@@ -26,9 +26,10 @@ const Chat = () => {
 
   const handleSubmitMessage = (e) => {
     e.preventDefault();
-
+    // await updateDocument(project.id, [...rooms.comments, newComment]);
     console.log(message);
   };
+
   return (
     <div className="chat">
       <div className="chat-header">
