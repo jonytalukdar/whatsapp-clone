@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 
-import { InsertEmoticon, Mic } from '@mui/icons-material';
+import { InsertEmoticon, Mic, SendOutlined } from '@mui/icons-material';
+import { Button } from '@mui/material';
 
 import { AuthContext } from '../../context/AuthContext';
 import useFireStore from '../../hooks/useFireStore';
@@ -15,6 +16,7 @@ const ChatForm = ({ document }) => {
   //states
   const [message, setMessage] = useState('');
 
+  //submit handler
   const handleSubmitMessage = async (e) => {
     e.preventDefault();
 
@@ -42,7 +44,11 @@ const ChatForm = ({ document }) => {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
         />
-        <button type="submit">Send Message</button>
+        {message && (
+          <Button variant="outlined" endIcon={<SendOutlined />}>
+            Send
+          </Button>
+        )}
       </form>
       <Mic />
     </div>

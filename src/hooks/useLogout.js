@@ -4,13 +4,10 @@ import { app } from '../firebase/Firebase.config';
 import { getAuth, signOut } from 'firebase/auth';
 import { AuthContext } from '../context/AuthContext';
 
-import { getFirestore, doc, updateDoc } from 'firebase/firestore';
-
 const auth = getAuth(app);
-const db = getFirestore(app);
 
 const useLogout = () => {
-  const { dispatch, user } = useContext(AuthContext);
+  const { dispatch } = useContext(AuthContext);
 
   //states
   const [isCancelled, setIsCancelled] = useState(false);

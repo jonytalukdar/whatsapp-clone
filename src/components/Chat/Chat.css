@@ -9,6 +9,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px;
+  height: 40px;
   border-bottom: 1px solid lightgray;
 }
 
@@ -51,7 +52,7 @@
   width: fit-content;
   font-size: 16px;
   padding: 10px;
-  border-radius: 12px;
+  border-radius: 8px;
   margin-bottom: 20px;
 }
 
@@ -62,7 +63,7 @@
   font-size: 16px;
   font-weight: 400;
   padding: 10px;
-  border-radius: 12px;
+  border-radius: 8px;
   margin-bottom: 20px;
   margin-left: auto;
 }
@@ -111,4 +112,9 @@
 .chat-footer > .MuiSvgIcon-root {
   padding: 10px;
   color: gray;
+}
+
+.chat-footer button {
+  cursor: pointer;
+  margin-left: 5px;
 }

@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import useLogout from '../../hooks/useLogout';
 
 import './Siderbar.css';
 
@@ -15,7 +14,7 @@ import MenuBar from '../Menu/Menu';
 function Sidebar() {
   const { user } = useContext(AuthContext);
   const { addDocument } = useFireStore('rooms');
-  const { signout } = useLogout();
+
   const { documents } = useCollection('rooms');
 
   //create chat function
@@ -32,7 +31,7 @@ function Sidebar() {
       {/* header */}
       <div className="sidebar-header">
         <Avatar src={user.photoURL} />
-        <button onClick={signout}>logout</button>
+
         <div className="sidebar-rightSide">
           <IconButton>
             <DonutLarge />
@@ -56,18 +55,12 @@ function Sidebar() {
       {/* chats rooms */}
       <div className="sidebar-chats">
         <div className="sidebarChats" onClick={createChat}>
-          <h2>Add New Chat</h2>
+          <h2>Create New Room</h2>
         </div>
         {/* {documents.length === 0 && <p>No Rooms Created Yet!</p>} */}
         {documents &&
           documents.map((room) => {
-            return (
-              <SidebarChats
-                key={room.id}
-                room={room}
-                addNewChat={() => console.log('hello')}
-              />
-            );
+            return <SidebarChats key={room.id} room={room} />;
           })}
       </div>
     </div>

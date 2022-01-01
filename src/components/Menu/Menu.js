@@ -1,4 +1,6 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
+import useLogout from '../../hooks/useLogout';
 import {
   Box,
   Avatar,
@@ -17,14 +19,19 @@ import Logout from '@mui/icons-material/Logout';
 import { MoreVert } from '@mui/icons-material';
 
 export default function AccountMenu() {
+  const { user } = useContext(AuthContext);
+  const { signout } = useLogout();
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
@@ -32,12 +39,11 @@ export default function AccountMenu() {
           <IconButton
             onClick={handleClick}
             size="small"
-            sx={{ ml: 2 }}
             aria-controls={open ? 'account-menu' : undefined}
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            <MoreVert sx={{ width: 32, height: 32 }} />
+            <MoreVert />
           </IconButton>
         </Tooltip>
       </Box>
@@ -77,7 +83,7 @@ export default function AccountMenu() {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem>
-          <Avatar /> Profile
+          <Avatar src={user.photoURL} /> {user.displayName}
         </MenuItem>
         <MenuItem>
           <Avatar /> My account
@@ -95,7 +101,7 @@ export default function AccountMenu() {
           </ListItemIcon>
           Settings
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={signout}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
