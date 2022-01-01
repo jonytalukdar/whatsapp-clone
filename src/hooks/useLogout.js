@@ -22,14 +22,6 @@ const useLogout = () => {
     setIsLoading(true);
 
     try {
-      const { uid } = user;
-
-      /// update online status
-      const updatedUsers = doc(db, 'users', uid);
-      await updateDoc(updatedUsers, {
-        online: false,
-      });
-
       await signOut(auth);
 
       dispatch({ type: 'LOGOUT' });

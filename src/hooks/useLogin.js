@@ -33,12 +33,6 @@ const useLogin = () => {
         throw new Error('Could not complete login!');
       }
 
-      // update user online status
-      const updatedUserStatus = doc(db, 'users', user.uid);
-      await updateDoc(updatedUserStatus, {
-        online: true,
-      });
-
       //update dispatch
       dispatch({ type: 'LOGIN', payload: user });
 

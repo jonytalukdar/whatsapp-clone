@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import useLogout from '../hooks/useLogout';
 
 import './Siderbar.css';
 import { IconButton, Avatar } from '@material-ui/core';
@@ -14,6 +15,7 @@ import { AuthContext } from '../context/AuthContext';
 
 function Sidebar() {
   const { user } = useContext(AuthContext);
+  const { signout } = useLogout();
   const { documents } = useCollection('rooms');
   const [roomName, setRoomName] = useState('');
   //create chat function
@@ -30,6 +32,7 @@ function Sidebar() {
       {/* header */}
       <div className="sidebar-header">
         <Avatar src={user.photoURL} />
+        <button onClick={signout}>logout</button>
         <div className="sidebar-rightSide">
           <IconButton>
             <DonutLarge />
