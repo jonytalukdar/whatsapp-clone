@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Avatar } from '@material-ui/core';
+import { Avatar } from '@mui/material';
 
 import './SidebarChats.css';
 import { Link } from 'react-router-dom';
 
 const SidebarChats = ({ room }) => {
   const [seed, setSeed] = useState('');
+
+  const lastMessage = room.messages[room.messages.length - 1].content;
 
   useEffect(() => {
     setSeed(Math.floor(Math.random() * 5000));
@@ -20,7 +22,7 @@ const SidebarChats = ({ room }) => {
           />
           <div className="sidebarChats-info">
             <h3>{room.name}</h3>
-            <p>last message....</p>
+            <p>{lastMessage}</p>
           </div>
         </div>
       </Link>

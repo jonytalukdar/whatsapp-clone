@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 
-import { InsertEmoticon, Mic } from '@material-ui/icons';
+import { InsertEmoticon, Mic } from '@mui/icons-material';
 
 import { AuthContext } from '../../context/AuthContext';
 import useFireStore from '../../hooks/useFireStore';

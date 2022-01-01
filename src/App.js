@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import Chat from './components/Chat/Chat';
-import Sidebar from './components/Sidebar';
+import Sidebar from './components/Sidebar/Sidebar';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import { AuthContext } from './context/AuthContext';

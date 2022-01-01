@@ -1,5 +1,6 @@
 import React, { useContext, useRef, useEffect } from 'react';
 import { AuthContext } from '../../context/AuthContext';
+import { formatDistanceToNow } from 'date-fns';
 
 const ChatMessage = ({ document }) => {
   const { user } = useContext(AuthContext);
@@ -30,7 +31,11 @@ const ChatMessage = ({ document }) => {
             >
               <span className="chat-name">{message.creator}</span>
               {message.content}
-              <span className="chat-timestamp">4.12pm</span>
+              <span className="chat-timestamp">
+                {formatDistanceToNow(message.createdAt.toDate(), {
+                  addSuffix: true,
+                })}
+              </span>
             </p>
           );
         })}

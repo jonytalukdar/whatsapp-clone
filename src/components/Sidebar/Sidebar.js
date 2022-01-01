@@ -1,25 +1,22 @@
-import React, { useContext, useState } from 'react';
-import useLogout from '../hooks/useLogout';
+import React, { useContext } from 'react';
+import useLogout from '../../hooks/useLogout';
 
 import './Siderbar.css';
-import { IconButton, Avatar } from '@material-ui/core';
-import {
-  DonutLarge,
-  ChatOutlined,
-  MoreVert,
-  SearchOutlined,
-} from '@material-ui/icons';
+
+import { IconButton, Avatar } from '@mui/material';
+import { SearchOutlined, ChatOutlined, DonutLarge } from '@mui/icons-material';
+
 import SidebarChats from './SidebarChats';
-import useCollection from '../hooks/useCollection';
-import { AuthContext } from '../context/AuthContext';
-import useFireStore from '../hooks/useFireStore';
+import useCollection from '../../hooks/useCollection';
+import { AuthContext } from '../../context/AuthContext';
+import useFireStore from '../../hooks/useFireStore';
+import MenuBar from '../Menu/Menu';
 
 function Sidebar() {
   const { user } = useContext(AuthContext);
   const { addDocument } = useFireStore('rooms');
   const { signout } = useLogout();
   const { documents } = useCollection('rooms');
-  // const [roomName, setRoomName] = useState('');
 
   //create chat function
   const createChat = (e) => {
@@ -43,9 +40,8 @@ function Sidebar() {
           <IconButton>
             <ChatOutlined />
           </IconButton>
-          <IconButton>
-            <MoreVert />
-          </IconButton>
+          {/* menu bar */}
+          <MenuBar />
         </div>
       </div>
 

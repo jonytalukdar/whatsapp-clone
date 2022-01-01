@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
-import { Avatar, IconButton } from '@material-ui/core';
-import { MoreVert, SearchOutlined, AttachFile } from '@material-ui/icons';
+import { Avatar, IconButton } from '@mui/material';
+import { MoreVert, SearchOutlined, AttachFile } from '@mui/icons-material';
+import { formatDistanceToNow } from 'date-fns';
 
 const ChatHeader = ({ document }) => {
   const [seed, setSeed] = useState('');
+
+  const lastSeen = document.messages[document.messages.length - 1].createdAt;
 
   useEffect(() => {
     setSeed(Math.floor(Math.random() * 5000));
@@ -16,7 +19,14 @@ const ChatHeader = ({ document }) => {
 
       <div className="chat-headerInfo">
         <h3>{document && document.name}</h3>
-        <p>last seen</p>
+        <p>
+          last seen
+          <span>
+            {formatDistanceToNow(lastSeen.toDate(), {
+              addSuffix: true,
+            })}
+          </span>
+        </p>
       </div>
 
       <div className="chat-headerRight">
