@@ -11,9 +11,14 @@ const ChatMessage = ({ document }) => {
           return (
             <p
               key={message.id}
-              className={`chat-message ${
+              //   className={`chat-message ${
+              //     user.displayName === message.creator
+              //   } && chat-receiver`}
+              className={`${
                 user.displayName === message.creator
-              } && chat-receiver`}
+                  ? 'chat-receiver'
+                  : 'chat-message'
+              }`}
             >
               <span className="chat-name">{message.creator}</span>
               {message.content}
