@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 import './Siderbar.css';
 import { IconButton, Avatar } from '@material-ui/core';
@@ -10,8 +10,10 @@ import {
 } from '@material-ui/icons';
 import SidebarChats from './SidebarChats';
 import useCollection from '../hooks/useCollection';
+import { AuthContext } from '../context/AuthContext';
 
 function Sidebar() {
+  const { user } = useContext(AuthContext);
   const { documents } = useCollection('rooms');
   const [roomName, setRoomName] = useState('');
   //create chat function
@@ -27,7 +29,7 @@ function Sidebar() {
     <div className="sidebar">
       {/* header */}
       <div className="sidebar-header">
-        <Avatar />
+        <Avatar src={user.photoURL} />
         <div className="sidebar-rightSide">
           <IconButton>
             <DonutLarge />

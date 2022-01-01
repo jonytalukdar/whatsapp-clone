@@ -16,6 +16,7 @@ const Chat = () => {
   //states
   const [seed, setSeed] = useState('');
   const [message, setMessage] = useState('');
+
   const { id } = useParams();
   const { document } = useDocument('rooms', id);
 
@@ -36,7 +37,7 @@ const Chat = () => {
         />
 
         <div className="chat-headerInfo">
-          <h3>{document.name}</h3>
+          <h3>{document && document.name}</h3>
           <p>last seen</p>
         </div>
 
