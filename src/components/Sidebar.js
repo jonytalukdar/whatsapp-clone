@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import './Siderbar.css';
 import { IconButton, Avatar } from '@material-ui/core';
@@ -13,6 +13,15 @@ import useCollection from '../hooks/useCollection';
 
 function Sidebar() {
   const { documents } = useCollection('rooms');
+  const [roomName, setRoomName] = useState('');
+  //create chat function
+  const createChat = (e) => {
+    const roomName = prompt('Please enter room name for chat');
+
+    if (roomName) {
+      setRoomName(roomName);
+    }
+  };
 
   return (
     <div className="sidebar">
@@ -42,10 +51,18 @@ function Sidebar() {
 
       {/* chats rooms */}
       <div className="sidebar-chats">
+        <div className="sidebarChats" onClick={createChat}>
+          <h2>Add New Chat</h2>
+        </div>
         {documents &&
           documents.map((room) => {
-            // return <Sidebar room={room} />;
-            return <SidebarChats key={room.id} room={room} />;
+            return (
+              <SidebarChats
+                key={room.id}
+                room={room}
+                addNewChat={() => console.log('hello')}
+              />
+            );
           })}
       </div>
     </div>

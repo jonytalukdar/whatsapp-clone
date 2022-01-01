@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Avatar, IconButton } from '@material-ui/core';
+import { useParams } from 'react-router-dom';
 import {
   MoreVert,
   SearchOutlined,
@@ -14,6 +15,10 @@ const Chat = () => {
   //states
   const [seed, setSeed] = useState('');
   const [message, setMessage] = useState('');
+
+  const { id } = useParams();
+
+  console.log(id);
 
   useEffect(() => {
     setSeed(Math.floor(Math.random() * 5000));
