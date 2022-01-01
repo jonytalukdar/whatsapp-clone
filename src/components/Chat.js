@@ -10,15 +10,14 @@ import {
 } from '@material-ui/icons';
 
 import './Chat.css';
+import useDocument from '../hooks/useDocument';
 
 const Chat = () => {
   //states
   const [seed, setSeed] = useState('');
   const [message, setMessage] = useState('');
-
   const { id } = useParams();
-
-  console.log(id);
+  const { document } = useDocument('rooms', id);
 
   useEffect(() => {
     setSeed(Math.floor(Math.random() * 5000));
@@ -37,7 +36,7 @@ const Chat = () => {
         />
 
         <div className="chat-headerInfo">
-          <h3>room name</h3>
+          <h3>{document.name}</h3>
           <p>last seen</p>
         </div>
 
