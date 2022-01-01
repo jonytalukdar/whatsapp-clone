@@ -6,10 +6,11 @@ const ChatMessage = ({ document }) => {
 
   return (
     <>
-      {document.messages.map((message) => {
-        return (
-          <div className="chat-body" key={message.id}>
+      <div className="chat-body">
+        {document.messages.map((message) => {
+          return (
             <p
+              key={message.id}
               className={`chat-message ${
                 user.displayName === message.creator
               } && chat-receiver`}
@@ -18,9 +19,9 @@ const ChatMessage = ({ document }) => {
               {message.content}
               <span className="chat-timestamp">4.12pm</span>
             </p>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </>
   );
 };

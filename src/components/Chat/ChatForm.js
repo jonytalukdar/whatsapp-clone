@@ -8,9 +8,9 @@ import { Timestamp } from 'firebase/firestore';
 
 const timestamp = Timestamp;
 
-const ChatForm = () => {
+const ChatForm = ({ document }) => {
   const { user } = useContext(AuthContext);
-  const { updateDocument } = useFireStore('rooms');
+  const { updateDocument, response } = useFireStore('rooms');
 
   //states
   const [message, setMessage] = useState('');
@@ -25,8 +25,11 @@ const ChatForm = () => {
       id: Math.random(),
     };
 
-    await updateDocument([newMessage]);
-    console.log('success');
+    await updateDocument(document.id, [...document.messages, newMessage]);
+
+    if (!response.error) {
+      setMessage('');
+    }
   };
 
   return (

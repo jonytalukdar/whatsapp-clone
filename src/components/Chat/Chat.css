@@ -65,8 +65,9 @@
 .chat-name {
   position: absolute;
   font-size: xx-small;
-  font-weight: 800;
+  font-weight: 700;
   top: -15px;
+  color: gray;
 }
 
 .chat-timestamp {
