@@ -1,8 +1,18 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef, useEffect } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 
 const ChatMessage = ({ document }) => {
   const { user } = useContext(AuthContext);
+
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [document.messages]);
 
   return (
     <>
@@ -10,10 +20,8 @@ const ChatMessage = ({ document }) => {
         {document.messages.map((message) => {
           return (
             <p
+              ref={messagesEndRef}
               key={message.id}
-              //   className={`chat-message ${
-              //     user.displayName === message.creator
-              //   } && chat-receiver`}
               className={`${
                 user.displayName === message.creator
                   ? 'chat-receiver'
