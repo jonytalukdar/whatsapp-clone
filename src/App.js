@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import Chat from './components/Chat';
+import Chat from './components/Chat/Chat';
 import Sidebar from './components/Sidebar';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
