@@ -26,7 +26,7 @@ const UserChat = () => {
   const { id } = useParams();
   const { document } = useDocument('users', id);
   //states
-  const [msgs, setMsgs] = useState(null);
+  const [msgs, setMsgs] = useState([]);
 
   const user1 = user.uid;
   const user2 = document && document.id;
@@ -59,11 +59,17 @@ const UserChat = () => {
     return () => unsub();
   }, [user1, user2]);
 
+  const lastSeen = msgs.length > 0 && msgs[msgs.length - 1].createdAt;
+
   return (
     <div className="chat">
       <>
-        {document && <ChatHeader document={document} />}
+        {document && msgs && (
+          <ChatHeader document={document} createdAt={lastSeen} />
+        )}
+
         {document && msgs && <ChatMessage documents={msgs} />}
+
         {document && msgs && (
           <ChatForm
             document={document}

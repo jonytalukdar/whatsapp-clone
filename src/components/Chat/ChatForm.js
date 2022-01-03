@@ -8,12 +8,16 @@ import {
 } from '@mui/icons-material';
 import { Button } from '@mui/material';
 import Picker from 'emoji-picker-react';
+import Upload from '../../svg/Upload';
 
 import { AuthContext } from '../../context/AuthContext';
 import useFireStore from '../../hooks/useFireStore';
 import { Timestamp } from 'firebase/firestore';
+import { ref, getDownloadURL, uploadBytes, getStorage } from 'firebase/storage';
+import { app } from '../../firebase/Firebase.config';
 
 const timestamp = Timestamp;
+const storage = getStorage(app);
 
 const ChatForm = ({ document, addMessagesHandler }) => {
   const { user } = useContext(AuthContext);
@@ -24,17 +28,30 @@ const ChatForm = ({ document, addMessagesHandler }) => {
 
   //states
   const [message, setMessage] = useState('');
+  const [photo, setPhoto] = useState(null);
   const [showPicker, setShowPicker] = useState(false);
 
   //submit handler
   const handleSubmitMessage = async (e) => {
     e.preventDefault();
 
+    //for photoUpload
+    let url;
+    if (photo) {
+      const photoRef = ref(
+        storage,
+        `images/${new Date().getTime()} - ${photo.name}`
+      );
+      const snap = await uploadBytes(photoRef, photo);
+      url = await getDownloadURL(ref(storage, snap.ref.fullPath));
+    }
+
     const newMessage = {
       creator: user.displayName,
       createdAt: timestamp.fromDate(new Date()),
       content: message,
       id: Math.random(),
+      media: url || '',
     };
 
     if (pathname === `/room/${document.id}`) {
@@ -47,6 +64,7 @@ const ChatForm = ({ document, addMessagesHandler }) => {
 
     if (!response.error) {
       setMessage('');
+      setPhoto(null);
     }
     setShowPicker(false);
   };
@@ -71,13 +89,24 @@ const ChatForm = ({ document, addMessagesHandler }) => {
       )}
 
       <form onSubmit={handleSubmitMessage}>
+        <label htmlFor="photo">
+          <Upload />
+        </label>
+        {photo && 'Photo Added'}
+        <input
+          type="file"
+          id="photo"
+          style={{ display: 'none' }}
+          onChange={(e) => setPhoto(e.target.files[0])}
+        />
+
         <input
           type="text"
           placeholder="Type a message"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
         />
-        {message && (
+        {(message || photo) && (
           <Button type="submit" variant="outlined" endIcon={<SendOutlined />}>
             Send
           </Button>

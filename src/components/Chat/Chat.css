@@ -76,6 +76,12 @@
   color: gray;
 }
 
+.chat-img {
+  width: 250px;
+  height: 250px;
+  background-color: none;
+}
+
 .chat-timestamp {
   margin-left: 15px;
   font-size: xx-small;
@@ -132,4 +138,9 @@
   border-radius: 4px;
   font-size: 30px;
   cursor: pointer;
+}
+
+form {
+  display: flex;
+  align-items: center;
 }

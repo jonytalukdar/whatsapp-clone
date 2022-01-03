@@ -5,8 +5,6 @@ import { formatDistanceToNow } from 'date-fns';
 const ChatMessage = ({ documents }) => {
   const { user } = useContext(AuthContext);
 
-  console.log(documents);
-
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -22,23 +20,28 @@ const ChatMessage = ({ documents }) => {
       <div className="chat-body">
         {documents.map((message, i) => {
           return (
-            <p
-              ref={messagesEndRef}
-              key={i}
-              className={`${
-                user.displayName === message.creator
-                  ? 'chat-receiver'
-                  : 'chat-message'
-              }`}
-            >
-              <span className="chat-name">{message.creator}</span>
-              {message.content}
-              <span className="chat-timestamp">
-                {formatDistanceToNow(message.createdAt.toDate(), {
-                  addSuffix: true,
-                })}
-              </span>
-            </p>
+            <>
+              <p
+                ref={messagesEndRef}
+                key={i}
+                className={`${
+                  user.displayName === message.creator
+                    ? 'chat-receiver'
+                    : 'chat-message'
+                }`}
+              >
+                <span className="chat-name">{message.creator}</span>
+                {message.content}
+                {message.media ? (
+                  <img className="chat-img" src={message.media} alt="sms" />
+                ) : null}
+                <span className="chat-timestamp">
+                  {formatDistanceToNow(message.createdAt.toDate(), {
+                    addSuffix: true,
+                  })}
+                </span>
+              </p>
+            </>
           );
         })}
       </div>

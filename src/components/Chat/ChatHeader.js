@@ -4,7 +4,7 @@ import { Avatar, IconButton } from '@mui/material';
 import { MoreVert, SearchOutlined, AttachFile } from '@mui/icons-material';
 import { formatDistanceToNow } from 'date-fns';
 
-const ChatHeader = ({ document }) => {
+const ChatHeader = ({ document, createdAt }) => {
   const [seed, setSeed] = useState('');
 
   const lastSeen =
@@ -33,6 +33,9 @@ const ChatHeader = ({ document }) => {
               formatDistanceToNow(lastSeen.toDate(), {
                 addSuffix: true,
               })}
+            {createdAt
+              ? formatDistanceToNow(createdAt.toDate(), { addSuffix: true })
+              : null}
           </span>
         </p>
       </div>
