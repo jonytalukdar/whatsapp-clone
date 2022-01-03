@@ -17,7 +17,7 @@ const RoomChat = () => {
     <div className="chat">
       <>
         {document && <ChatHeader document={document} />}
-        {document && <ChatMessage document={document} />}
+        {document && <ChatMessage documents={document.messages} />}
         {document && <ChatForm document={document} />}
       </>
     </div>

@@ -19,6 +19,10 @@ function Sidebar() {
   const { documents: rooms } = useCollection('rooms');
   const { documents: users } = useCollection('users');
 
+  const { uid } = user;
+
+  const filteredUsers = users && users.filter((user) => user.id !== uid);
+
   //create chat function
   const createChat = (e) => {
     const roomName = prompt('Please enter room name for chat');
@@ -65,11 +69,14 @@ function Sidebar() {
             return <SidebarChats key={room.id} room={room} />;
           })}
 
-        <h2>All Users</h2>
-        {users &&
-          users.map((user) => {
-            return <User key={user.id} user={user} />;
-          })}
+        {filteredUsers && (
+          <>
+            <h3>All Users</h3>
+            {filteredUsers.map((user) => {
+              return <User key={user.id} user={user} />;
+            })}
+          </>
+        )}
       </div>
     </div>
   );

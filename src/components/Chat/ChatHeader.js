@@ -17,7 +17,12 @@ const ChatHeader = ({ document }) => {
 
   return (
     <div className="chat-header">
-      <Avatar src={`https://avatars.dicebear.com/api/adventurer/${seed}.svg`} />
+      <Avatar
+        src={
+          document.photoURL ||
+          `https://avatars.dicebear.com/api/adventurer/${seed}.svg`
+        }
+      />
 
       <div className="chat-headerInfo">
         <h3>{document && document.name}</h3>

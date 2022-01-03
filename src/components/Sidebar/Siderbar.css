@@ -60,3 +60,8 @@
   overflow: auto;
   overflow-x: hidden;
 }
+
+.sidebar-chats h2 {
+  margin-left: 12px;
+  color: rgba(0, 0, 0, 0.74);
+}

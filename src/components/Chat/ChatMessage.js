@@ -2,8 +2,10 @@ import React, { useContext, useRef, useEffect } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { formatDistanceToNow } from 'date-fns';
 
-const ChatMessage = ({ document }) => {
+const ChatMessage = ({ documents }) => {
   const { user } = useContext(AuthContext);
+
+  console.log(documents);
 
   const messagesEndRef = useRef(null);
 
@@ -13,16 +15,16 @@ const ChatMessage = ({ document }) => {
 
   useEffect(() => {
     scrollToBottom();
-  }, [document.messages]);
+  }, [documents]);
 
   return (
     <>
       <div className="chat-body">
-        {document.messages.map((message) => {
+        {documents.map((message, i) => {
           return (
             <p
               ref={messagesEndRef}
-              key={message.id}
+              key={i}
               className={`${
                 user.displayName === message.creator
                   ? 'chat-receiver'

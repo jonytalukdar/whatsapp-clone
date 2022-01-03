@@ -15,13 +15,12 @@ import { Timestamp } from 'firebase/firestore';
 
 const timestamp = Timestamp;
 
-const ChatForm = ({ document }) => {
+const ChatForm = ({ document, addMessagesHandler }) => {
   const { user } = useContext(AuthContext);
   const { pathname } = useLocation();
 
   const { updateDocument: updateRoomsMessage, response } =
     useFireStore('rooms');
-  const { updateDocument: updateUserMessages } = useFireStore('users');
 
   //states
   const [message, setMessage] = useState('');
@@ -40,12 +39,10 @@ const ChatForm = ({ document }) => {
 
     if (pathname === `/room/${document.id}`) {
       await updateRoomsMessage(document.id, [...document.messages, newMessage]);
-      return;
     }
 
     if (pathname === `/user/${document.id}`) {
-      await updateUserMessages(document.id, [...document.messages, newMessage]);
-      return;
+      addMessagesHandler(message);
     }
 
     if (!response.error) {
