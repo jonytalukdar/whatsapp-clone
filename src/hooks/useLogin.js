@@ -8,10 +8,11 @@ import {
 } from 'firebase/auth';
 import { AuthContext } from '../context/AuthContext';
 
-import { getFirestore, doc, updateDoc } from 'firebase/firestore';
+import { getFirestore, doc, setDoc, Timestamp } from 'firebase/firestore';
 
 const auth = getAuth(app);
 const db = getFirestore(app);
+const timestamp = Timestamp;
 
 const useLogin = () => {
   const { dispatch } = useContext(AuthContext);
@@ -58,6 +59,13 @@ const useLogin = () => {
       const token = credential.accessToken;
 
       const user = response.user;
+
+      await setDoc(doc(db, 'users', user.uid), {
+        createdAt: timestamp.fromDate(new Date()),
+        name: user.displayName,
+        photoURL: user.photoURL,
+        messages: [],
+      });
 
       dispatch({ type: 'LOGIN', payload: user });
       if (!isCancelled) {

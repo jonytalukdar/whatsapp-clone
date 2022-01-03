@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Avatar } from '@mui/material';
+import { NavLink } from 'react-router-dom';
 
 import './SidebarChats.css';
-import { Link, NavLink } from 'react-router-dom';
 
 const SidebarChats = ({ room }) => {
   const [seed, setSeed] = useState('');

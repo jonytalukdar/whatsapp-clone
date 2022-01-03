@@ -8,11 +8,10 @@ import ChatForm from './ChatForm';
 import ChatMessage from './ChatMessage';
 import ChatHeader from './ChatHeader';
 
-const Chat = () => {
+const UserChat = () => {
   //states
-
   const { id } = useParams();
-  const { document } = useDocument('rooms', id);
+  const { document } = useDocument('users', id);
 
   return (
     <div className="chat">
@@ -25,4 +24,4 @@ const Chat = () => {
   );
 };
 
-export default Chat;
+export default UserChat;

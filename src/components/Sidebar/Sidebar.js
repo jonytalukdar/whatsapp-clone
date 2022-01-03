@@ -6,6 +6,7 @@ import { IconButton, Avatar } from '@mui/material';
 import { SearchOutlined, ChatOutlined, DonutLarge } from '@mui/icons-material';
 
 import SidebarChats from './SidebarChats';
+import User from '../User/User';
 import useCollection from '../../hooks/useCollection';
 import { AuthContext } from '../../context/AuthContext';
 import useFireStore from '../../hooks/useFireStore';
@@ -15,7 +16,8 @@ function Sidebar() {
   const { user } = useContext(AuthContext);
   const { addDocument } = useFireStore('rooms');
 
-  const { documents } = useCollection('rooms');
+  const { documents: rooms } = useCollection('rooms');
+  const { documents: users } = useCollection('users');
 
   //create chat function
   const createChat = (e) => {
@@ -57,10 +59,16 @@ function Sidebar() {
         <div className="sidebarChats" onClick={createChat}>
           <h2>Create New Room</h2>
         </div>
-        {/* {documents.length === 0 && <p>No Rooms Created Yet!</p>} */}
-        {documents &&
-          documents.map((room) => {
+
+        {rooms &&
+          rooms.map((room) => {
             return <SidebarChats key={room.id} room={room} />;
+          })}
+
+        <h2>All Users</h2>
+        {users &&
+          users.map((user) => {
+            return <User key={user.id} user={user} />;
           })}
       </div>
     </div>

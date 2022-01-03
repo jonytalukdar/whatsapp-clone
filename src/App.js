@@ -1,11 +1,12 @@
 import { useContext } from 'react';
-import Chat from './components/Chat/Chat';
+import RoomChat from './components/Chat/RoomChat';
 import Sidebar from './components/Sidebar/Sidebar';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import { AuthContext } from './context/AuthContext';
 
 import './App.css';
+import UserChat from './components/Chat/UserChat';
 
 function App() {
   const { user, authIsReady } = useContext(AuthContext);
@@ -18,12 +19,17 @@ function App() {
           <Routes>
             <Route
               path="/"
-              element={user ? <Chat /> : <Navigate to="/login" />}
+              element={user ? <RoomChat /> : <Navigate to="/login" />}
             />
 
             <Route
               path="/room/:id"
-              element={user ? <Chat /> : <Navigate to="/login" />}
+              element={user ? <RoomChat /> : <Navigate to="/login" />}
+            />
+
+            <Route
+              path="/user/:id"
+              element={user ? <UserChat /> : <Navigate to="/login" />}
             />
 
             <Route

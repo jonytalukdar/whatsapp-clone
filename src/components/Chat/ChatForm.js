@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-
+import { useLocation } from 'react-router-dom';
 import {
   InsertEmoticon,
   Mic,
@@ -17,7 +17,11 @@ const timestamp = Timestamp;
 
 const ChatForm = ({ document }) => {
   const { user } = useContext(AuthContext);
-  const { updateDocument, response } = useFireStore('rooms');
+  const { pathname } = useLocation();
+
+  const { updateDocument: updateRoomsMessage, response } =
+    useFireStore('rooms');
+  const { updateDocument: updateUserMessages } = useFireStore('users');
 
   //states
   const [message, setMessage] = useState('');
@@ -34,7 +38,15 @@ const ChatForm = ({ document }) => {
       id: Math.random(),
     };
 
-    await updateDocument(document.id, [...document.messages, newMessage]);
+    if (pathname === `/room/${document.id}`) {
+      await updateRoomsMessage(document.id, [...document.messages, newMessage]);
+      return;
+    }
+
+    if (pathname === `/user/${document.id}`) {
+      await updateUserMessages(document.id, [...document.messages, newMessage]);
+      return;
+    }
 
     if (!response.error) {
       setMessage('');

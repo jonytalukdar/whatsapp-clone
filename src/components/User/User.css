@@ -1,0 +1,29 @@
+a {
+  text-decoration: none;
+  color: gray;
+}
+.userChats {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border-bottom: 2px solid #f6f6f6;
+  cursor: pointer;
+}
+
+.userChats:hover {
+  background-color: #ebebeb;
+}
+
+a.active > .userChats {
+  background-color: #eee7e7;
+  border-left: 3px solid blue;
+}
+
+.userChats-info {
+  margin-left: 20px;
+}
+
+.userChats-info h2,
+p {
+  margin: 0;
+}
