@@ -16,13 +16,11 @@ const Chat = () => {
 
   return (
     <div className="chat">
-      {document && (
-        <>
-          <ChatHeader document={document} />
-          <ChatMessage document={document} />
-          <ChatForm document={document} />
-        </>
-      )}
+      <>
+        {document && <ChatHeader document={document} />}
+        {document && <ChatMessage document={document} />}
+        {document && <ChatForm document={document} />}
+      </>
     </div>
   );
 };

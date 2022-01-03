@@ -1,7 +1,13 @@
 import React, { useContext, useState } from 'react';
 
-import { InsertEmoticon, Mic, SendOutlined } from '@mui/icons-material';
+import {
+  InsertEmoticon,
+  Mic,
+  SendOutlined,
+  CancelOutlined,
+} from '@mui/icons-material';
 import { Button } from '@mui/material';
+import Picker from 'emoji-picker-react';
 
 import { AuthContext } from '../../context/AuthContext';
 import useFireStore from '../../hooks/useFireStore';
@@ -15,6 +21,7 @@ const ChatForm = ({ document }) => {
 
   //states
   const [message, setMessage] = useState('');
+  const [showPicker, setShowPicker] = useState(false);
 
   //submit handler
   const handleSubmitMessage = async (e) => {
@@ -32,11 +39,28 @@ const ChatForm = ({ document }) => {
     if (!response.error) {
       setMessage('');
     }
+    setShowPicker(false);
+  };
+
+  //emoji picker
+  const onEmojiClick = (e, emojiObject) => {
+    setMessage((prevState) => prevState + emojiObject.emoji);
   };
 
   return (
     <div className="chat-footer">
-      <InsertEmoticon />
+      <InsertEmoticon
+        onClick={() => setShowPicker((val) => !val)}
+        style={{ cursor: 'pointer' }}
+      />
+      {showPicker && (
+        <div className="emoji-picker">
+          <Picker onEmojiClick={onEmojiClick} />
+
+          <CancelOutlined onClick={() => setShowPicker(false)} />
+        </div>
+      )}
+
       <form onSubmit={handleSubmitMessage}>
         <input
           type="text"
@@ -45,11 +69,12 @@ const ChatForm = ({ document }) => {
           onChange={(e) => setMessage(e.target.value)}
         />
         {message && (
-          <Button variant="outlined" endIcon={<SendOutlined />}>
+          <Button type="submit" variant="outlined" endIcon={<SendOutlined />}>
             Send
           </Button>
         )}
       </form>
+
       <Mic />
     </div>
   );

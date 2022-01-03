@@ -7,7 +7,9 @@ import { formatDistanceToNow } from 'date-fns';
 const ChatHeader = ({ document }) => {
   const [seed, setSeed] = useState('');
 
-  const lastSeen = document.messages[document.messages.length - 1].createdAt;
+  const lastSeen =
+    document.messages.length > 0 &&
+    document.messages[document.messages.length - 1].createdAt;
 
   useEffect(() => {
     setSeed(Math.floor(Math.random() * 5000));
@@ -22,9 +24,10 @@ const ChatHeader = ({ document }) => {
         <p>
           last seen
           <span>
-            {formatDistanceToNow(lastSeen.toDate(), {
-              addSuffix: true,
-            })}
+            {document.messages.length > 0 &&
+              formatDistanceToNow(lastSeen.toDate(), {
+                addSuffix: true,
+              })}
           </span>
         </p>
       </div>

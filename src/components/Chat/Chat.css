@@ -83,6 +83,7 @@
 }
 
 .chat-footer {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -117,4 +118,18 @@
 .chat-footer button {
   cursor: pointer;
   margin-left: 5px;
+}
+
+.chat-footer .emoji-picker {
+  position: absolute;
+  bottom: 70px;
+  left: 0;
+  display: flex;
+}
+
+.chat-footer .emoji-picker > .MuiSvgIcon-root {
+  background-color: white;
+  border-radius: 4px;
+  font-size: 30px;
+  cursor: pointer;
 }
